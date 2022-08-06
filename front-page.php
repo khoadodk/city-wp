@@ -157,5 +157,54 @@ get_header();
 	</div>
 </section>
 
+<!-- Projects Section -->
+<section class="projects">
+	<div class="container">
+		<div class="project-header">
+			<span class="title-dep">Our projects</span>
+			<h2 class="title-default">Development of Charlotte - this is our common <span class='highlighted'>cause</span></h2>
+			<p class="text-default">It was popularised in the 1960s with the release of Letraset sheets containing  It was popularised in the 1960s with the release.</p>
+		</div>
+		<div class="project-items">
+			<?php 
+				$args = array(
+					'post_type'=> 'projects',
+					'posts_per_page' => 3,
+				);
+				$projects = get_posts($args)
+			?>
+			<?php 
+				foreach($projects as $post):
+					setup_postdata($post)
+			?>
+			<div class="project-item" style="background-image: url('<?php echo esc_url( get_the_post_thumbnail_url()) ?>')">
+				<h5 class="project-item-title"><?php echo get_the_title() ?></h5>
+				<div class="project-item-excerpt">
+					<?php echo get_the_excerpt() ?>
+				</div>
+				<a href="<?php esc_url(get_permalink()) ?>" class="read-more"> <?php esc_html_e('Read more', 'our-mission') ?>
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4.16602 10H15.8327" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						<path d="M11.5 5L16.5 10L11.5 15" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</a>
+			</div>
+
+			<?php 
+				endforeach;
+				wp_reset_postdata();
+			?>		
+		</div>
+		<div class="read-more-wrapper">
+			<a href="<?php echo get_post_type_archive_link('projects') ?>" class="btn-oulined-blue">All projects
+				<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.16602 10H15.8327" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M11.5 5L16.5 10L11.5 15" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>
+
 <?php
 get_footer();

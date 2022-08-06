@@ -275,3 +275,72 @@ if( class_exists( 'Kirki' ) ) {
 		]
 	);
 }
+
+// Custom Post Types
+function custom_post_type() {
+	// Set UI labels for Custom Post Type
+	$labels = array(
+		'name'                => _x( 'Projects', 'Post Type General Name', 'our-mission' ),
+		'singular_name'       => _x( 'Project', 'Post Type Singular Name', 'our-mission' ),
+		'menu_name'           => __( 'Projects', 'our-mission' ),
+		'parent_item_colon'   => __( 'Parent Project', 'our-mission' ),
+		'all_items'           => __( 'All Projects', 'our-mission' ),
+		'view_item'           => __( 'View Project', 'our-mission' ),
+		'add_new_item'        => __( 'Add New Project', 'our-mission' ),
+		'add_new'             => __( 'Add New', 'our-mission' ),
+		'edit_item'           => __( 'Edit Project', 'our-mission' ),
+		'update_item'         => __( 'Update Project', 'our-mission' ),
+		'search_items'        => __( 'Search Project', 'our-mission' ),
+		'not_found'           => __( 'Not Found', 'our-mission' ),
+		'not_found_in_trash'  => __( 'Not found in Trash', 'our-mission' ),
+	);
+		  
+	// Set other options for Custom Post Type
+		
+	$args = array(
+		'label'               => __( 'Projects', 'our-mission' ),
+		'description'         => __( 'Project news and reviews', 'our-mission' ),
+		'labels'              => $labels,
+		// Features this CPT supports in Post Editor
+		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+		// You can associate this CPT with a taxonomy or custom taxonomy. 
+		'taxonomies'          => array( 'genres' ),
+		/* A hierarchical CPT is like Pages and can have
+		* Parent and child items. A non-hierarchical CPT
+		* is like Posts.
+		*/
+		'hierarchical'        => false,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+		'menu_position'       => 5,
+		'can_export'          => true,
+		'has_archive'         => true,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => 'post',
+		'show_in_rest' => true,
+	  
+	);  
+	// Registering your Custom Post Type
+	register_post_type( 'projects', $args );
+}
+	  
+	/* Hook into the 'init' action so that the function
+	* Containing our post type registration is not 
+	* unnecessarily executed. 
+	*/
+add_action( 'init', 'custom_post_type', 0 );
+
+// Remove brackets in the end of except
+add_filter( 'excerpt_more', function(){
+	return '...';
+});
+add_filter( 'excerpt_length', function($length){
+	if(is_front_page()){
+		return 15;
+	}
+	return $length;
+});
