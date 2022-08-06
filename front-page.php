@@ -70,5 +70,92 @@ get_header();
 	</div>
 </section>
 
+<!-- News Section -->
+<section class="kh-news">
+	<div class="container">
+		<div class="news-header">
+			<span class="title-dep">News</span>
+			<h2 class="title-default">What the <span class='highlighted'>media</span> says about us</h2>
+		</div>
+		<div class="news-block">
+			<div class="news-block__left">
+				<?php 
+					$left_args = array(
+						'posts_per_page' => 1,
+						'post__in' => get_option( 'sticky_posts' ),
+						'ignore_sticky_posts' => 1
+					);
+					$the_query = new WP_Query($left_args);
+				?>
+				<?php 
+					if($the_query->have_posts()):
+						while ($the_query->have_posts()):
+							$the_query->the_post(); 
+				?>
+				<a href="<?php echo get_the_permalink() ?>" class="new-image">
+					<?php the_post_thumbnail('full') ?>
+				</a>
+				<div class="news-meta">
+					<?php $cats = wp_get_post_categories(get_the_ID(), array('fields' => 'all')) ?>
+					<a href="<?php echo get_term_link($cats[0]->term_id) ?>" class="news-cat">
+						<?php echo esc_html($cats[0]->name) ?>
+					</a><span><?php echo get_the_date('j F Y') ?></span>
+				</div>
+				<a href="<?php echo get_the_permalink() ?>" class="news-title"><?php echo esc_html(get_the_title()) ?></a>
+				<?php
+						endwhile;
+					else:
+							_e('Sorry, no posts matched your criteria.', 'our-mission');
+					endif;
+					wp_reset_postdata();
+				?>
+			</div>
+
+			<div class="news-block__right">
+				<?php 
+					$right_args = array(
+						'post_type' => 'post',
+						'posts_per_page' => 4,
+						'ignore_sticky_posts' => 1
+					);
+					$the_query = new WP_Query($right_args);
+				?>
+				<?php 
+					if($the_query->have_posts()):
+						while ($the_query->have_posts()):
+							$the_query->the_post(); 
+				?>
+				<div class="news-item">
+					<a href="<?php echo get_the_permalink() ?>" class="new-image">
+						<?php the_post_thumbnail('full') ?>
+					</a>
+					<div class="news-meta">
+						<?php $cats = wp_get_post_categories(get_the_ID(), array('fields' => 'all')) ?>
+						<a href="<?php echo get_term_link($cats[0]->term_id) ?>" class="news-cat">
+							<?php echo esc_html($cats[0]->name) ?>
+						</a><span><?php echo get_the_date('j F Y') ?></span>
+					</div>
+					<a href="<?php echo get_the_permalink() ?>" class="news-title"><?php echo esc_html(wp_trim_words(get_the_title(), 8)) ?></a>
+				</div>
+				<?php
+							endwhile;
+						else:
+								_e('Sorry, no posts matched your criteria.', 'our-mission');
+						endif;
+						wp_reset_postdata();
+				?>	
+			</div>
+		</div>
+		<div class="read-more-wrapper">
+			<a href="<?php echo get_permalink( get_option( 'page_for_posts' ) ); ?>" class="btn-oulined-blue"> All news
+				<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.16602 10H15.8327" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M11.5 5L16.5 10L11.5 15" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>
+
 <?php
 get_footer();
