@@ -988,6 +988,7 @@ left: 50%;
                 transform: translateY(-50%);
 }.form-search-wrapper input {
         height: 48px;
+        width:200px!important;
         border: 1.5px solid #394A72;
         border-radius: 8px;
         -webkit-box-sizing: border-box;

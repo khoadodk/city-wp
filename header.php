@@ -22,38 +22,59 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'our-mission' ); ?></a>
 
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+<header class="header-main">
+	<div class="container">
+		<div class="header-items">
+			<div class="header-logo">
+				<?php the_custom_logo() ?>
+			</div>
+			<nav class="main-navigation">
 				<?php
-			else :
+					wp_nav_menu(
+						array(
+							'theme_location' => 'menu-1',
+							'container' => false,
+							'menu_class' => 'header-menu'
+						)
+					);
 				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$our_mission_description = get_bloginfo( 'description', 'display' );
-			if ( $our_mission_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $our_mission_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
+			</nav>
+			<div class="header-buttons">
+				<?php get_search_form() ?>
+				<a href="" class="btn-light leave-appeal">Leave appeal</a>
+			</div>
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'our-mission' ); ?></button>
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
-				)
-			);
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+			<div class="mobile-menu-bars">
+				<span class="bar"></span>
+				<span class="bar"></span>
+				<span class="bar"></span>
+			</div>
+		</div>
+
+		<!-- Mobile menu -->
+		<div class="mobile-menu-items">
+			<div class="mobile-menu-inner">						
+				<div class="mobile-header">
+					<div class="mobile-search">
+						<?php get_search_form(); ?>
+					</div>
+				</div>
+				<div class="mobile-menu">
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'menu-1',
+							'container'      => false,
+							'menu_class'     => 'header-menu',
+							'menu_id'        => 'menu-mobile-primary',
+						)
+					);
+					?>
+				</div>
+				<a href="" class="btn-light">Leave appeal</a>
+			</div>
+		</div>
+	</div>
+</header>
+

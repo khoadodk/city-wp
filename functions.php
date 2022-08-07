@@ -142,12 +142,14 @@ function our_mission_scripts() {
 	wp_style_add_data( 'our-mission-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'our-mission-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'our-mission-menu', get_template_directory_uri() . '/assets/js/menu.js', array('jquery'), time(), true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
 	wp_enqueue_style( 'main-style', get_template_directory_uri() . '/assets/css/main.css', array(), time(), 'all' );
+	wp_enqueue_style( 'menu-style', get_template_directory_uri() . '/assets/css/menu.css', array(), time(), 'all' );
 }
 add_action( 'wp_enqueue_scripts', 'our_mission_scripts' );
 
@@ -344,3 +346,21 @@ add_filter( 'excerpt_length', function($length){
 	}
 	return $length;
 });
+
+/**
+ * Add arrows to menu.
+*/
+add_filter( 'nav_menu_item_title', 'our_nav_menu_item_title', 10, 4 );
+function our_nav_menu_item_title( $title, $menu_item, $args, $depth ) {
+
+	if ( 0 === $depth && in_array( 'menu-item-has-children', $menu_item->classes, true ) ) {
+		$title .= '<span><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+	<path d="M7.32824 10.3125C7.2111 10.3125 7.09385 10.2667 7.00442 10.1752L2.42427 5.48769C2.2453 5.30452 2.2453 5.00792 2.42427 4.82487C2.60324 4.64183 2.89304 4.64171 3.0719 4.82487L7.32824 9.18097L11.5846 4.82487C11.7635 4.64171 12.0533 4.64171 12.2322 4.82487C12.4111 5.00804 12.4112 5.30464 12.2322 5.48769L7.65205 10.1752C7.56262 10.2667 7.44537 10.3125 7.32824 10.3125Z" fill="#fff"/>
+	</svg></span>';
+	} elseif ( 0 !== $depth && in_array( 'menu-item-has-children', $menu_item->classes, true ) ) {
+		$title .= '<span><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+		<path d="M10.3125 7.32801C10.3125 7.44515 10.2667 7.5624 10.1752 7.65183L5.48769 12.232C5.30452 12.411 5.00792 12.411 4.82487 12.232C4.64183 12.053 4.64171 11.7632 4.82487 11.5844L9.18097 7.32801L4.82487 3.07168C4.64171 2.89271 4.64171 2.6029 4.82487 2.42405C5.00804 2.24519 5.30464 2.24508 5.48768 2.42405L10.1752 7.0042C10.2667 7.09363 10.3125 7.21088 10.3125 7.32801Z" fill="#fff"/>
+		</svg></span>';
+	}
+	return $title;
+}
