@@ -49,7 +49,8 @@ function our_mission_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'our-mission' ),
+			'menu-1' => esc_html__( 'Header', 'our-mission' ),
+			'menu-2' => esc_html__( 'Footer', 'our-mission' ),
 		)
 	);
 
@@ -119,11 +120,39 @@ add_action( 'after_setup_theme', 'our_mission_content_width', 0 );
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
+/**
+ * Register widget area.
+ *
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ */
 function our_mission_widgets_init() {
 	register_sidebar(
 		array(
 			'name'          => esc_html__( 'Sidebar', 'our-mission' ),
 			'id'            => 'sidebar-1',
+			'description'   => esc_html__( 'Add widgets here.', 'our-mission' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer #1', 'our-mission' ),
+			'id'            => 'footer-1',
+			'description'   => esc_html__( 'Add widgets here.', 'our-mission' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer #2', 'our-mission' ),
+			'id'            => 'footer-2',
 			'description'   => esc_html__( 'Add widgets here.', 'our-mission' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',

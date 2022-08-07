@@ -10,23 +10,52 @@
  */
 
 ?>
+<footer class="footer">
 
-	<footer id="colophon" class="site-footer">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'our-mission' ) ); ?>">
-				<?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'our-mission' ), 'WordPress' );
-				?>
-			</a>
-			<span class="sep"> | </span>
-				<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'our-mission' ), 'our-mission', '<a href="http://underscores.me/">Underscores.me</a>' );
-				?>
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
-</div><!-- #page -->
+<div class="footer-layer-1">
+	<div class="container">
+		<div class="footer-logo">
+			<?php the_custom_logo(); ?>
+		</div>
+		<?php
+			wp_nav_menu(
+				array(
+					'theme_location' => 'menu-2',
+					'container'      => false,
+					'menu_class'     => 'footer-menu',
+				)
+			);
+		?>
+		<ul class="footer-socials">
+		<?php $socials = get_theme_mod( 'our_mission_socials' ); ?>
+			<?php foreach ( $socials as $social ) : ?>
+				<li><a href="<?php echo esc_url( $social['link_url'] ); ?>"><img src="<?php echo esc_url( $social['link_icon'] ); ?>" alt=""></a></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+</div>
+	<!-- This is optional. Can be set as a widget -->
+	<?php 
+		if ( is_active_sidebar( 'footer-1' ) ) : 
+		 	dynamic_sidebar( 'footer-1' ); 
+		endif; 
+		if ( is_active_sidebar( 'footer-2' ) ) :
+			dynamic_sidebar( 'footer-2' ); 
+		endif; 
+	?>
+
+<div class="footer-layer-2">
+	<div class="container">
+		<p class="copyrights">Copyright 2021 © All rights reserved. When reprinting materials, a link to the site is required!</p>
+		<div id="scroll_to_top">
+			<svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M10.5 5.25L6 0.75L1.5 5.25" stroke="#8DA3C6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+			</svg>
+		</div>
+	</div>
+</div>
+
+</footer>
 
 <?php wp_footer(); ?>
 
