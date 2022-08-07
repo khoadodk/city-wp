@@ -171,7 +171,12 @@ function our_mission_scripts() {
 	wp_style_add_data( 'our-mission-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'our-mission-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'our-mission-main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), time(), true );
 	wp_enqueue_script( 'our-mission-menu', get_template_directory_uri() . '/assets/js/menu.js', array('jquery'), time(), true );
+
+	// Slick slider
+	wp_enqueue_style('slick-css','https://cdn.jsdelivr.net/npm/slick-carousel@1.8.0/slick/slick.css');
+	wp_enqueue_script('slick-js','https://cdn.jsdelivr.net/npm/slick-carousel@1.8.0/slick/slick.min.js');
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -357,6 +362,53 @@ function custom_post_type() {
 	);  
 	// Registering your Custom Post Type
 	register_post_type( 'projects', $args );
+
+	// Initiative
+	$initiative_labels = array(
+		'name'                => _x( 'Initiatives', 'Post Type General Name', 'our-mission' ),
+		'singular_name'       => _x( 'Initiative', 'Post Type Singular Name', 'our-mission' ),
+		'menu_name'           => __( 'Initiatives', 'our-mission' ),
+		'parent_item_colon'   => __( 'Parent Initiative', 'our-mission' ),
+		'all_items'           => __( 'All Initiatives', 'our-mission' ),
+		'view_item'           => __( 'View Initiative', 'our-mission' ),
+		'add_new_item'        => __( 'Add New Initiative', 'our-mission' ),
+		'add_new'             => __( 'Add New', 'our-mission' ),
+		'edit_item'           => __( 'Edit Initiative', 'our-mission' ),
+		'update_item'         => __( 'Update Initiative', 'our-mission' ),
+		'search_items'        => __( 'Search Initiative', 'our-mission' ),
+		'not_found'           => __( 'Not Found', 'our-mission' ),
+		'not_found_in_trash'  => __( 'Not found in Trash', 'our-mission' ),
+	);
+		  
+	// Set other options for Custom Post Type
+		
+	$initiative_args = array(
+		'label'               => __( 'Initiatives', 'our-mission' ),
+		'description'         => __( 'Initiative news and reviews', 'our-mission' ),
+		'labels'              => $initiative_labels,
+		// Features this CPT supports in Post Editor
+		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+		// You can associate this CPT with a taxonomy or custom taxonomy. 
+		'taxonomies'          => array( 'genres' ),
+		/* A hierarchical CPT is like Pages and can have
+		* Parent and child items. A non-hierarchical CPT
+		* is like Posts.
+		*/
+		'hierarchical'        => false,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+		'menu_position'       => 5,
+		'can_export'          => true,
+		'has_archive'         => true,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => 'post',
+		'show_in_rest' => true,
+	);
+	register_post_type( 'initiatives', $initiative_args );  
 }
 	  
 	/* Hook into the 'init' action so that the function
@@ -393,3 +445,6 @@ function our_nav_menu_item_title( $title, $menu_item, $args, $depth ) {
 	}
 	return $title;
 }
+
+// Imported functions
+require_once get_template_directory() . '/inc/utils.php';
