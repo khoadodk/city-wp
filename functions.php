@@ -409,8 +409,9 @@ function custom_post_type() {
 		'show_in_rest' => true,
 	);
 	register_post_type( 'initiatives', $initiative_args );  
-
-	$initiative_labels = array(
+			  
+	// Events Custom Post Type
+	$event_labels = array(
 		'name'                => _x( 'Events', 'Post Type General Name', 'our-mission' ),
 		'singular_name'       => _x( 'Event', 'Post Type Singular Name', 'our-mission' ),
 		'menu_name'           => __( 'Events', 'our-mission' ),
@@ -425,12 +426,11 @@ function custom_post_type() {
 		'not_found'           => __( 'Not Found', 'our-mission' ),
 		'not_found_in_trash'  => __( 'Not found in Trash', 'our-mission' ),
 	);
-		  
-	// Events Custom Post Type
+
 	$event_args = array(
 		'label'               => __( 'Events', 'our-mission' ),
 		'description'         => __( 'Event news and reviews', 'our-mission' ),
-		'labels'              => $initiative_labels,
+		'labels'              => $event_labels,
 		// Features this CPT supports in Post Editor
 		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
 		// You can associate this CPT with a taxonomy or custom taxonomy. 
@@ -454,6 +454,51 @@ function custom_post_type() {
 		'show_in_rest' => true,
 	);
 	register_post_type( 'events', $event_args );  
+
+	// Charities Custom Post Type
+	$charity_labels = array(
+		'name'                => _x( 'Charities', 'Post Type General Name', 'our-mission' ),
+		'singular_name'       => _x( 'Charity', 'Post Type Singular Name', 'our-mission' ),
+		'menu_name'           => __( 'Charities', 'our-mission' ),
+		'parent_item_colon'   => __( 'Parent Charity', 'our-mission' ),
+		'all_items'           => __( 'All Charities', 'our-mission' ),
+		'view_item'           => __( 'View Charity', 'our-mission' ),
+		'add_new_item'        => __( 'Add New Charity', 'our-mission' ),
+		'add_new'             => __( 'Add New', 'our-mission' ),
+		'edit_item'           => __( 'Edit Charity', 'our-mission' ),
+		'update_item'         => __( 'Update Charity', 'our-mission' ),
+		'search_items'        => __( 'Search Charity', 'our-mission' ),
+		'not_found'           => __( 'Not Found', 'our-mission' ),
+		'not_found_in_trash'  => __( 'Not found in Trash', 'our-mission' ),
+	);
+
+	$charity_args = array(
+		'label'               => __( 'Charities', 'our-mission' ),
+		'description'         => __( 'Charity news and reviews', 'our-mission' ),
+		'labels'              => $charity_labels,
+		// Features this CPT supports in Post Editor
+		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+		// You can associate this CPT with a taxonomy or custom taxonomy. 
+		'taxonomies'          => array( 'genres' ),
+		/* A hierarchical CPT is like Pages and can have
+		* Parent and child items. A non-hierarchical CPT
+		* is like Posts.
+		*/
+		'hierarchical'        => false,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+		'menu_position'       => 5,
+		'can_export'          => true,
+		'has_archive'         => true,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => 'post',
+		'show_in_rest' => true,
+	);
+	register_post_type( 'charity', $charity_args );   
 }
 	  
 	/* Hook into the 'init' action so that the function

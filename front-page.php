@@ -495,5 +495,95 @@ get_header();
 <?php get_template_part('templates/appeal-banner') ?>
 
 <!-- Charity Section -->
+<section class="charity">
+	<div class="container">
+		<div class="charity-header">
+			<div class="charity-title-wrapper">
+				<span class="title-dep"><?php esc_html_e( 'Charity', 'our-mission' ); ?></span>
+				<h2 class="title-default"><?php echo wp_kses_post( __( 'Learn how to <span class="highlighted">help</span>', 'our-mission' ) ); ?></h2>
+				<p class="text-default"><?php esc_html_e( 'Our life can be made better not thanks to the good will of the municipality or the city hall, but only through our efforts!', 'our-mission' ); ?></p>
+			</div>
+			<div class="read-more-wrapper">
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'charity' ) ); ?>" class="btn-oulined-blue"><?php esc_html_e( 'See all', 'our-mission' ); ?>
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4.16602 10H15.8327" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						<path d="M11.5 5L16.5 10L11.5 15" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</a>
+			</div>
+		</div>
+
+		<div class="charity-items">
+
+			<?php
+			$charity = get_posts(
+				array(
+					'post_type'      => 'charity',
+					'posts_per_page' => 4,
+					'orderby'        => array( 'date' => 'DESC' ),
+				)
+			);
+			foreach ( $charity as $post ) :
+				setup_postdata( $post );
+				?>
+				<div class="charity-item">
+					<div class="charity-item-header">
+						<?php the_post_thumbnail( 'large' ); ?>
+					</div>
+					<div class="charity-body">
+						<h5 class="charity-item-title">
+							<?php echo get_the_title(); ?>
+						</h5>
+						<div class="charity-item-excerpt">
+							<?php echo wp_trim_words( get_the_content(), 13 ); ?>
+						</div>
+						<div class="votes-charity-block">
+							<?php
+								$required_summ = get_field( 'required_sum', $post->ID );
+								$summ_applied  = get_field( 'sum_applied', $post->ID );
+								$round_summ    = (int) $summ_applied / (int) $required_summ * 100;
+
+								$date_created = get_the_date( 'Y-m-d' );
+								$date_now     = new DateTime( 'now' );
+
+								$expiry_date_object = DateTime::createFromFormat( 'Y-m-d', $date_created );
+								// expiry date is 100 days from $date_created;
+								$expiry_date = $expiry_date_object->add( new DateInterval( 'P100D' ) );
+								$interval    = $expiry_date->diff( $date_now )->format( '%a' );
+
+							?>
+							<div class="voted-header">
+
+								<div class="votes-charity"><?php printf( __( '<span>%s $</span> collected' ), empty( $summ_applied ) ? 0 : $summ_applied ); ?></div>
+								<div class="votes-charity-percent"><?php echo esc_html( floor( $round_summ ) . '%' ); ?></div>
+							</div>
+							<span class="range-total">
+								<?php if ( $round_summ > 0 ) : ?>
+									<span class="range-completed" style="width: <?php echo esc_html( $round_summ . '%' ); ?>"></span>
+								<?php endif; ?>
+							</span>
+							<?php if ( $date_now->format( 'Y-m-d' ) < $expiry_date->format( 'Y-m-d' ) ) : ?>
+								<div class="dates-to-expire">
+									<?php printf( _n( '%s day left', '%s days left', $interval ), $interval ); ?>
+								</div>
+							<?php endif; ?>
+						</div>
+
+					</div>
+				</div>
+			<?php endforeach; ?>
+			<?php wp_reset_postdata(); ?>
+
+		</div>
+		<div class="read-more-wrapper mobile">
+			<a href="<?php echo esc_url( get_post_type_archive_link( 'charity' ) ); ?>" class="btn-oulined-blue"><?php esc_html_e( 'See', 'kharkiv' ); ?>
+				<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.16602 10H15.8327" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M11.5 5L16.5 10L11.5 15" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>
 <?php
 get_footer();
