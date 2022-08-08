@@ -332,7 +332,7 @@ get_header();
 				<?php if ( $date_now->format( 'Y-m-d' ) < $expiry_date->format( 'Y-m-d' ) ) : ?>
 					<div class="dates-to-expire">
 						<?php printf( _n( '%s day left', '%s days left', $interval, 'our-mission' ), $interval ); ?>
-					
+
 					</div>
 				<?php endif; ?>
 			</div>
@@ -342,8 +342,6 @@ get_header();
 					<path d="M11.5 5L16.5 10L11.5 15" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
 			</a>
-
-
 		</div>
 			<?php endforeach; ?>
 			<?php wp_reset_postdata(); ?>
@@ -358,5 +356,137 @@ get_header();
 		</div>
 	</div>
 </section>
+
+<!--  Events Section  -->
+<section class="activities">
+
+	<div class="container">
+		<div class="activities-header">
+			<div>
+				<h2 class="title-default">Upcoming events</h2>
+				<p class="text-default">It was popularised in the 1960s with the release of Letraset sheets containing. It wase of Letraset sheets containing  </p>
+			</div>
+			<div class="read-more-wrapper">
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'events' ) ); ?>" class="btn-oulined-blue"> All events
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4.16602 10H15.8327" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						<path d="M11.5 5L16.5 10L11.5 15" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</a>
+			</div>
+		</div>
+		<div class="activities-content">
+
+			<div class="activities-content-nav">
+			<?php
+			$date_now            = new DateTime( 'now', new DateTimeZone( wp_timezone_string() ) );
+					$events_args = array(
+						'post_type'      => 'events',
+						'posts_per_page' => 6,
+						'orderby'        => 'meta_value',
+						'order'          => 'ASC',
+						'meta_query'     => array(
+							array(
+								'key'     => 'date_event',
+								'value'   => $date_now->format( 'Y-m-d H:i:s' ),
+								'compare' => '>',
+							),
+						),
+					);
+					$events      = get_posts( $events_args );
+					?>
+				<?php foreach ( $events as $key => $post ) : ?>
+					<?php setup_postdata( $post ); ?>
+					<?php
+
+					$date_event = get_field( 'date_event', $post->ID );
+					?>
+					<div class="activities-nav-item  <?php echo 0 === $key ? 'active' : ''; ?>" data-nav="<?php echo esc_attr( 'ac-' . $key ); ?>">
+						<span class="activity-date">
+							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M15.4444 4.40039H4.55556C3.69645 4.40039 3 5.02718 3 5.80036V15.6002C3 16.3734 3.69645 17.0001 4.55556 17.0001H15.4444C16.3036 17.0001 17 16.3734 17 15.6002V5.80036C17 5.02718 16.3036 4.40039 15.4444 4.40039Z" stroke="#8C96A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M3 8.6001H17" stroke="#8C96A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M13.1094 3V5.79995" stroke="#8C96A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+								<path d="M6.89062 3V5.79995" stroke="#8C96A3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+
+							<span><?php echo wp_date( 'j F Y', strtotime( $date_event ) ); ?></span>
+						</span>
+						<h4><?php echo wp_kses_post( get_the_title() ); ?></h4>
+					</div>
+					<?php endforeach; ?>
+					<?php wp_reset_postdata(); ?>
+			
+			</div>
+			<div class="activities-content-tabs">
+			<?php foreach ( $events as $key => $post ) : ?>
+					<?php setup_postdata( $post ); ?>
+					<?php
+					$date_event = get_field( 'date_event', $post->ID );
+					$due_date   = get_gmt_from_date( $date_event );
+					?>
+					<div class="activities-content-tab <?php echo 0 === $key ? 'active' : ''; ?>" id="<?php echo esc_attr( 'ac-' . $key ); ?>">
+						<div class="activities-thumb">
+						   <?php the_post_thumbnail( 'full' ); ?>
+						</div>
+						<div class="activities-centered">
+							<div class="activities-desc">
+							<?php echo wp_kses_post( get_the_content() ); ?>
+							</div>
+							<span><?php esc_html_e( 'To the event remains:', 'our-mission' ); ?></span>
+							<div class="kh-widget-countdown_kvitna" data-id="<?php echo esc_attr( 'count-' . $key ); ?>" >
+								<div class="kh-countdown-wrapper" data-date="<?php echo strtotime( $due_date ); ?>">
+									<div class="kh-countdown-item">
+										<div class="kh-countdown-days kh-countdown-digitals">
+											
+										</div>
+
+										<div class="kh-countdown-label">
+											<?php esc_html_e( 'Days', 'our-mission' ); ?>
+										</div>
+									</div>
+									<div class="kh-countdown-item">
+										<div class="kh-countdown-hours kh-countdown-digitals">
+											
+										</div>
+
+										<div class="kh-countdown-label">
+											<?php esc_html_e( 'Hours', 'our-mission' ); ?>
+										</div>
+									</div>
+									<div class="kh-countdown-item">
+										<div class="kh-countdown-minutes kh-countdown-digitals">
+											
+										</div>
+
+										<div class="kh-countdown-label">
+											<?php esc_html_e( 'Minutes', 'our-mission' ); ?>
+										</div>
+									</div>
+								</div>
+							</div>
+							<a href="<?php echo esc_url( get_permalink() ); ?>" class="read-more-blue"><?php esc_html_e( 'See details', 'our-mission' ); ?> 
+								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M4.16602 10H15.8327" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+									<path d="M11.5 5L16.5 10L11.5 15" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+							</a>
+						</div>
+					</div>
+					<?php endforeach; ?>
+					<?php wp_reset_postdata(); ?>
+			</div>
+		</div>
+		<div class="read-more-wrapper mobile">
+			<a href="<?php echo esc_url( get_post_type_archive_link( 'events' ) ); ?>" class="btn-oulined-blue"> <?php esc_html_e( 'All events', 'our-mission' ); ?>
+				<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.16602 10H15.8327" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M11.5 5L16.5 10L11.5 15" stroke="#3454D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>
+<!-- Events -->
 <?php
 get_footer();

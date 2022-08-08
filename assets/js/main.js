@@ -93,4 +93,20 @@
         });
       }
     );
+
+
+    //  Events tabs: Add a class active on click to the tab and its data-nav
+  $(".activities-nav-item").each(function () {
+    $(this).on("click", function () {
+      $(".activities-nav-item").each(function () {
+        $(this).removeClass("active");
+      });
+      $(this).addClass("active");
+      let contId = $(this).attr("data-nav");
+      $(".activities-content-tab").each(function () {
+        $(this).removeClass("active");
+      });
+      $(`#${contId}`).addClass("active");
+    });
+  });
 })(jQuery); 

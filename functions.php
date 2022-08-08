@@ -173,7 +173,7 @@ function our_mission_scripts() {
 	wp_enqueue_script( 'our-mission-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 	wp_enqueue_script( 'our-mission-main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), time(), true );
 	wp_enqueue_script( 'our-mission-menu', get_template_directory_uri() . '/assets/js/menu.js', array('jquery'), time(), true );
-
+	wp_enqueue_script( 'our-mission-countdown', get_template_directory_uri() . '/assets/js/countdown.js', array('jquery'), time(), true );
 	// Slick slider
 	wp_enqueue_style('slick-css','https://cdn.jsdelivr.net/npm/slick-carousel@1.8.0/slick/slick.css');
 	wp_enqueue_script('slick-js','https://cdn.jsdelivr.net/npm/slick-carousel@1.8.0/slick/slick.min.js');
@@ -409,6 +409,51 @@ function custom_post_type() {
 		'show_in_rest' => true,
 	);
 	register_post_type( 'initiatives', $initiative_args );  
+
+	$initiative_labels = array(
+		'name'                => _x( 'Events', 'Post Type General Name', 'our-mission' ),
+		'singular_name'       => _x( 'Event', 'Post Type Singular Name', 'our-mission' ),
+		'menu_name'           => __( 'Events', 'our-mission' ),
+		'parent_item_colon'   => __( 'Parent Event', 'our-mission' ),
+		'all_items'           => __( 'All Events', 'our-mission' ),
+		'view_item'           => __( 'View Event', 'our-mission' ),
+		'add_new_item'        => __( 'Add New Event', 'our-mission' ),
+		'add_new'             => __( 'Add New', 'our-mission' ),
+		'edit_item'           => __( 'Edit Event', 'our-mission' ),
+		'update_item'         => __( 'Update Event', 'our-mission' ),
+		'search_items'        => __( 'Search Event', 'our-mission' ),
+		'not_found'           => __( 'Not Found', 'our-mission' ),
+		'not_found_in_trash'  => __( 'Not found in Trash', 'our-mission' ),
+	);
+		  
+	// Events Custom Post Type
+	$event_args = array(
+		'label'               => __( 'Events', 'our-mission' ),
+		'description'         => __( 'Event news and reviews', 'our-mission' ),
+		'labels'              => $initiative_labels,
+		// Features this CPT supports in Post Editor
+		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+		// You can associate this CPT with a taxonomy or custom taxonomy. 
+		'taxonomies'          => array( 'genres' ),
+		/* A hierarchical CPT is like Pages and can have
+		* Parent and child items. A non-hierarchical CPT
+		* is like Posts.
+		*/
+		'hierarchical'        => false,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+		'menu_position'       => 5,
+		'can_export'          => true,
+		'has_archive'         => true,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => 'post',
+		'show_in_rest' => true,
+	);
+	register_post_type( 'events', $event_args );  
 }
 	  
 	/* Hook into the 'init' action so that the function
