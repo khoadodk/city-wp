@@ -224,20 +224,6 @@ require_once get_template_directory() . '/inc/ext/redux.php';
  */
 require_once get_template_directory() . '/inc/ext/kirki.php';
 
-function ourm_register_post_types() {
-
-	// Get post post type object
-	$object = get_post_type_object( 'post' );
- 
-	// Set rewrite argument
-	$object->rewrite = array( 'slug' => '/news', 'with_front' => false );
- 
-	// Reregister post type
-	register_post_type( 'post', $object );
- 
- }
- add_action( 'init', 'ourm_register_post_types' );
-
 // Custom Post Types
 function custom_post_type() {
 	// Set UI labels for Custom Post Type
@@ -464,3 +450,12 @@ function our_nav_menu_item_title( $title, $menu_item, $args, $depth ) {
 
 // Imported functions
 require_once get_template_directory() . '/inc/utils.php';
+
+/**
+ * Allows (publicly allowed) query vars to be added, removed, or changed prior to executing the query.
+ * This allows global #wp_query to be used in every archive.php
+ */
+function myplugin_query_vars( $public_query_vars ) {
+	return $public_query_vars;
+}
+add_filter( 'query_vars', 'myplugin_query_vars' );

@@ -41,7 +41,6 @@ function our_mission_get_categories_html() {
 			'type'     => 'post',
 			'orderby'  => 'name',
 			'order'    => 'ASC',
-
 		)
 	);
 	echo '<ul>';
@@ -51,4 +50,3 @@ function our_mission_get_categories_html() {
 	}
 	echo '</ul>';
 }
-
