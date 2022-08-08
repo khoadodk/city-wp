@@ -19,11 +19,10 @@ $title   = $args['title'] ?? false;
 				<?php if ( $socials ) : ?>
 					<ul class="socials-list-rounded">
 						<?php
-						$socials = get_theme_mod( 'ourm_kirki_socials' );
+						$socials = get_theme_mod( 'our_mission_socials' );
 						?>
 							<?php foreach ( $socials as $social ) : ?>
-							<li><a href="<?php echo esc_url( $social['link_url'] ); ?>" title="<?php echo esc_attr( $social['link_text'] ); ?>"><img src="<?php echo esc_url( $social['link_icon'] ); ?>" alt=""></a></li>
-							
+							<li><a href="<?php echo esc_url( $social['link_url'] ); ?>" title="<?php echo esc_attr( $social['link_text'] ); ?>"><img src="<?php echo esc_url( $social['link_icon'] ); ?>" alt=""></a></li>							
 							<?php endforeach; ?>
 						
 					</ul>

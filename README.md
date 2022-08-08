@@ -15,14 +15,7 @@ This project is bootstraped by underscore theme and prebuilt HTML/CSS/JS templat
 
 ## Screenshots
 
-<iframe
-    width="100%"
-    height="300"
-    src=!(homepage.png)
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-></iframe>
+!(homepage.png)
 
 ## Built With
 
