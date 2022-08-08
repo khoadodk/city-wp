@@ -357,6 +357,9 @@ get_header();
 	</div>
 </section>
 
+<!-- Initiative Banner -->
+<?php get_template_part('templates/initiative-banner') ?>
+
 <!--  Events Section  -->
 <section class="activities">
 
@@ -487,6 +490,10 @@ get_header();
 		</div>
 	</div>
 </section>
-<!-- Events -->
+
+<!-- Appeal Banner -->
+<?php get_template_part('templates/appeal-banner') ?>
+
+<!-- Charity Section -->
 <?php
 get_footer();
