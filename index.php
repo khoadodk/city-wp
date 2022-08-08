@@ -44,7 +44,7 @@ get_header();
 					?>
 
 					<div class="news-item">
-						<a href="" class="news-image">
+						<a href="<?php echo get_permalink(); ?>" class="news-image">
 							<?php the_post_thumbnail( 'full' ); ?>
 						</a>
 						<div class="news-meta">

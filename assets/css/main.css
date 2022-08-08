@@ -5295,6 +5295,7 @@ margin-bottom: 20px;
             max-width: 788px;
             text-align: center;
         }.team-single-content {
+            background-color: #fff;
     margin-top: -350px;
     padding-bottom: 150px;
 }/* .kh-single-content {
@@ -5336,6 +5337,7 @@ margin-bottom: 20px;
               
             }
     .team-single-content {
+        
        margin-top: -250px;
         padding-bottom: 60px;
     }
