@@ -972,7 +972,7 @@ left: 50%;
             transition: background 0.3s ease;
             border-radius: 50%;
 }.socials-team li a:hover {
-            background: #3454D2
+            background: #ddd;
         }.socials-team li a:hover svg path {
                 fill: #fff;
             }.socials-team li:not(:last-of-type) {
