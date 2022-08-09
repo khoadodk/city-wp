@@ -15,7 +15,7 @@ This project is bootstraped by underscore theme and prebuilt HTML/CSS/JS templat
 
 ## Screenshots
 
-!(homepage.png)
+![Home Page](homepage.png 'Home Page')
 
 ## Built With
 
