@@ -109,4 +109,29 @@
       $(`#${contId}`).addClass("active");
     });
   });
+
+
+  //search
+  $('a', $('.search-filter')).on('click', function(e) {
+    e.preventDefault();
+    const containerElement = $(this).data('container');
+    const allContainers = ['projects', 'events', 'news', 'initiatives'];
+    $('.search-filter a').each(function() {
+      $(this).removeClass('active')
+    })
+    $(this).addClass('active');
+    
+    if(containerElement === 'all') {
+      allContainers.forEach(el => {
+        $(`.${el}`).show();
+      })
+      return;
+    }
+    
+    allContainers.forEach(el => {
+      $(`.${el}`).hide();
+    })
+    
+    $(`.${containerElement}`).show();
+  })
 })(jQuery); 

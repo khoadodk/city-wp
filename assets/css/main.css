@@ -1069,7 +1069,7 @@ left: 50%;
         font-size: 16px;
         line-height: 20px;
     }.form-search-wrapper input::focus {
-
+        
     }.form-search-wrapper input.active {
         max-width: 100%;
     }.search-form.expand input {
@@ -6517,12 +6517,12 @@ display: flex;
 		}
 		body.search .initiative-archive-block .form-search-wrapper input {
 			height: 74px;
-			width: 100%;
+			width: 100%!important;
 			max-width: 100%;
 			padding: 0 30px;
 			padding-left: 74px;
 			font-size: 20px;
-			color: #090C1A;
+            color: #000;
 			background-color: #fff;
 			margin-right: 24px;
 		}
