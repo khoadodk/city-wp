@@ -9,7 +9,7 @@ This project is bootstraped by underscore theme and prebuilt HTML/CSS/JS templat
 
 - [Repo](https://github.com/khoadodk/city-wp 'Repo')
 
-- [Live](<Homepage url> 'Live View')
+- [Live](http://khoado.me 'Live View')
 
 - [Bugs](https://github.com/khoadodk/city-wp/issues 'Issues Page')
 
